@@ -1,0 +1,33 @@
+#%Module
+proc ModulesHelp { } {
+        global version prefix
+
+        puts stderr "This module provides the environment for the GNU compiler colection (GCC)."
+}
+
+module-whatis   "loads the GNU compiler"
+
+set basedir "/usr/local/modules/gcc-9"
+
+# for Tcl script use only
+set     version         "14.2.0"
+set     prefix          "/opt/gcc-14"
+
+setenv                  CC              ${prefix}/bin/gcc
+setenv                  CXX             ${prefix}/bin/g++
+setenv                  F77             ${prefix}/bin/gfortran
+setenv                  FC              ${prefix}/bin/gfortran
+setenv                  F90             ${prefix}/bin/gfortran
+setenv                  CFLAGS          -Wl,-rpath=${prefix}/lib64
+setenv                  CXXFLAGS        -Wl,-rpath=${prefix}/lib64
+setenv                  CPPFLAGS        -Wl,-rpath=${prefix}/lib64
+setenv                  FCFLAGS         -Wl,-rpath=${prefix}/lib64
+setenv                  F77FLAGS        -Wl,-rpath=${prefix}/lib64
+setenv                  F90FLAGS        -Wl,-rpath=${prefix}/lib64
+setenv                  FFLAGS          -Wl,-rpath=${prefix}/lib64
+
+
+prepend-path            PATH            "${prefix}/bin"
+prepend-path            INCLUDE         "${prefix}/include"
+prepend-path            LD_LIBRARY_PATH "${prefix}/lib64"
+prepend-path            MANPATH         "${prefix}/share/man"

@@ -1,0 +1,32 @@
+#%Module
+proc ModulesHelp { } {
+        global version prefix
+
+        puts stderr "This module provides the environment for OpenMPI (Version 4.1.5) with GCC (version 9.3.0)."
+}
+
+module-whatis   "loads the OpenMPI"
+
+set basedir "/opt/openmpi-5.0.5/GCC-14.2.0"
+
+# for Tcl script use only
+set     version         "5.0.5"
+set     prefix          "/opt/openmpi-5.0.5/GCC-14.2.0"
+
+
+setenv                  MPI_HOME        "${prefix}"
+setenv                  MPI_VERSION     "${version}"
+
+prepend-path            PATH            "${prefix}/bin"
+prepend-path            INCLUDE         "${prefix}/include"
+prepend-path            LD_LIBRARY_PATH "${prefix}/lib64"
+prepend-path            MANPATH         "${prefix}/share/man"
+prepend-path            PKG_CONFIG_PATH "${prefix}/lib64/pkgconfig"
+
+setenv                  SLURM_RESV_PORT 1
+
+conflict mpi
+
+if ![ is-loaded gcc/14.2.0 ] {
+    module load gcc/14.2.0
+}
